@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for post in obj %}
+        <div class="post block">
+            <h2 class="subtitle">{{ post.title }}</h2>
+            <small>Published {{ post.created_at }} by {{ post.author }}</small>
+            <p>{{ post.content|truncatewords:10 }}</p>
+            <a href="{% url 'post_detail' post.id %}">Read more</a>
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if obj.has_previous %}
+                <a href="?page={{ obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current-page">Page {{ obj.number }} of {{ obj.paginator.num_pages }}.</span>
+            {% if obj.has_next %}
+                <a href="?page={{ obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

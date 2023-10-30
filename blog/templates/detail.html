@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .form-control {
+            width: 300px; 
+        }
+    </style>
+    <h1 class="title">{{ post.title }}</h1>
+    <small>Published {{ post.created_at }}by {{post.author}}</small>
+    <p><strong>{{ post.content }}</strong></p>
+    <a href="{% url 'share_post' post.id %}">Share This Post</a>
+    <hr>
+    <h2 class="subtitle">
+        {% if post.comment_set.count == 0 %}
+            0 comments
+        {% else %}
+            {{ post.comment_set.count }} comment{{ post.comment_set.count|pluralize }}
+        {% endif %}
+    </h2>
+    <ul>
+        {% if post.comment_set.count == 0 %}
+            <li>No comments show yet.</li>
+        {% else %}
+            {% for comment in post.comment_set.all %}
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                             Comment {{ forloop.counter }} By {{ comment.name }} {{ comment.comment_date }}
+                            <br>
+                            <strong>{{ comment.body }}</strong>
+                            
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+
+    <hr>
+    <h2 class="subtitle">Add comment</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+
+        {{ form.as_p }}
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success">Submit</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.form-control {
+    width: 300px; /* Set the desired width for the input fields */
+  }
+</style>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        {{form.as_p}}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

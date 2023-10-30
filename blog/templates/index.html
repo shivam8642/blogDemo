@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-center">
+        <h1>Welcome To Blog Read Website</h1>
+        <p>Please login to read blogs</p>
+        {% if user.is_authenticated %}
+        {%else%}
+        <a href="login" class="btn btn-primary ">Login</a>
+        <a href="signup" class="btn btn-primary">Sign Up</a>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+
+ 
+
+
+{% endblock  %}
