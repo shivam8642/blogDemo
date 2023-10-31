@@ -104,7 +104,7 @@ def share_post(request,id):
             message = form.cleaned_data['message']
             email_message = f"Hi {name}Check out this blog post:\n\nTitle: {blog.title}\nDetail: {blog.content}{message}"
             send_mail('Blog Sharing', email_message, from_email, [to_email], fail_silently=False)
-            return redirect("send")
+            return redirect("post_detail",id=id)
 
     else:
         form = EmailBlogForm()
